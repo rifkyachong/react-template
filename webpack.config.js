@@ -8,9 +8,19 @@ module.exports =  {
   },
   module: {
     rules: [{
-      loader: 'babel-loader',
       test: /\.js$/,
-      exclude: /node_modules/
+      exclude: /node_modules/,
+      use: {
+        loader: 'babel-loader',
+        options: {
+          "presets": ["@babel/preset-env", "@babel/preset-react"],
+          "comments": false 
+        }
+      }
+    },
+    {
+      test: /\.css$/i,
+      use: ['style-loader', 'css-loader']
     }]
   },
   devServer: {
@@ -19,5 +29,10 @@ module.exports =  {
     },
     // contentBase: path.join(__dirname, 'public')
   },
-  mode: 'production'
+  mode: 'production',
+  performance: {
+    hints: false,
+    maxEntrypointSize: 512000,
+    maxAssetSize: 512000
+  }
 }
